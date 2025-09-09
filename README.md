@@ -19,6 +19,8 @@ PWS : https://pbp.cs.ui.ac.id/web/project/antonius.daniel/footballshop
   - melakukan push ke git hub dan mengkonfigurasi allowed_host berisi link pws.
   - melakukan push ke master pws.
   - membuat file readme.md yang berisi link pws saya dan jawaban dari pertanyaan yang lain.
+2. ![IMG_2449](https://github.com/user-attachments/assets/04832a45-e1f3-4de4-84da-e096fb833a76)
+
 3. Peran settings.py di django :
   - menngatur database apa yang akan digunakan oleh project tersebut
   - mengatur lokasi file hmtl pada templates
