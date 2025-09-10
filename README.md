@@ -3,13 +3,13 @@ PWS : https://pbp.cs.ui.ac.id/web/project/antonius.daniel/footballshop
 1 Saya mengimplementasikan checklist di atas dengan langkah-langkah berikut : 
   - Membuat direktori terlebih dahulu, lalu membuat file requirements yang akan didownload menggunakan pip isntall.
   - Membuat dan mengaktifkan environment
-  - menjalankan django-admin startproject LBM_SHOP .
+  - menjalankan django-admin startproject BluR_Sport .
   - mencoba menjalankan terlebih dahalu dengan cara python manage.py runvserer untuk mengetahui apakah ada ada error atau tidak.
   - membuat app baru dengan cara python manage.py startapp main
   - menambahakn app ke dalam installed apps
   - membuat env prod yang berisi username dan password database dan mengubah bagian database di settings.py.
   - membuat file baru urls.py di main
-  - menambahkan method include didalam urls pada LBM_SHOP dan menambahkan path('', include("main.urls")) didalam urlpatterns.
+  - menambahkan method include didalam urls pada BluR_Sport dan menambahkan path('', include("main.urls")) didalam urlpatterns.
   - membuat function pada views dan membuat dict bernama person berisi nama, npm dan kelas dan function ini akan render main.html dengen context = person
   - membuat folder baru didalam main bernama templates dan menambahkan file main.html
   - mengisi main.html agar bisa menampilkan nama,npm dan kelas berdasarkan person yang sudah saya buat di views.py
