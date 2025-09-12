@@ -1,0 +1,42 @@
+<h1>Daftar Produk</h1>
+    {% for p in products %}
+        {% if p.is_featured %}
+            <ul>
+                <b>Name : {{ p.name }}</b><br>
+                <b>Price : {{ p.price }}</b><br>
+                <img src="{{ p.thumbnail }}" alt="Product thumbnail" width="200">
+                <a href="{% url 'product_detail' p.pk %}">
+                    <button type="button">Detail</button>
+                </a>
+
+
+                <hr>
+            </ul>
+        {% else %}
+            <ul>
+                <p>Name : {{ p.name }}</p>
+                <p>Price : {{ p.price }}</p>
+                <img src="{{ p.thumbnail }}" alt="Product thumbnail" width="200">
+                 <a href="{% url 'product_detail' p.id %}">
+                    <button type="button">Detail</button>
+                </a>
+                <hr >
+            </ul>
+        {% endif %}
+    {% empty %}
+        <li>Tidak ada produk tersedia.</li>
+        <hr >
+
+        
+    {% endfor %}
+<br>
+
+
+
+<a href="{% url 'create_product' %}">
+    <button type="button">Add</button>
+</a>
+
+
+
+

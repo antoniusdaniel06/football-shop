@@ -1,0 +1,15 @@
+<h1>Detail Produk</h1>
+<hr>
+
+<h2>{{ product.name }}</h2>
+<p><b>Harga:</b> Rp {{ product.price }}</p>
+<p><b>Deskripsi:</b> {{ product.description }}</p>
+<p><b>Kategori:</b> {{ product.category }}</p>
+
+{% if product.is_featured %}
+    <p>Produk Unggulan</p>
+{% endif %}
+
+<img src="{{ product.thumbnail }}" alt="Thumbnail {{ product.name }}" width="250">
+
+<br><br>
