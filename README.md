@@ -1,31 +1,33 @@
 PWS : https://pbp.cs.ui.ac.id/web/project/antonius.daniel/footballshop
 
-1 Saya mengimplementasikan checklist di atas dengan langkah-langkah berikut : 
-  - Membuat direktori terlebih dahulu, lalu membuat file requirements yang akan didownload menggunakan pip isntall.
-  - Membuat dan mengaktifkan environment
-  - menjalankan django-admin startproject BluR_Sport .
-  - mencoba menjalankan terlebih dahalu dengan cara python manage.py runvserer untuk mengetahui apakah ada ada error atau tidak.
-  - membuat app baru dengan cara python manage.py startapp main
-  - menambahakn app ke dalam installed apps
-  - membuat env prod yang berisi username dan password database dan mengubah bagian database di settings.py.
-  - membuat file baru urls.py di main
-  - menambahkan method include didalam urls pada BluR_Sport dan menambahkan path('', include("main.urls")) didalam urlpatterns.
-  - membuat function pada views dan membuat dict bernama person berisi nama, npm dan kelas dan function ini akan render main.html dengen context = person
-  - membuat folder baru didalam main bernama templates dan menambahkan file main.html
-  - mengisi main.html agar bisa menampilkan nama,npm dan kelas berdasarkan person yang sudah saya buat di views.py
-  - membuat class baru bernama product berisi name,price,description,thumbnail, category,dan is featured di model.py
-  - melakukan migrasi model dengan cara python manage.py makemigrations dan python manage.py migrate.
-  - mengimport views didalam urls.py pada main agar bisa memanggil function yang sudah dibuat dengan cara path('',views.show_name, name='show_name').
-  - melakukan push ke git hub dan mengkonfigurasi allowed_host berisi link pws.
-  - melakukan push ke master pws.
-  - membuat file readme.md yang berisi link pws saya dan jawaban dari pertanyaan yang lain.
-2. ![IMG_2449](https://github.com/user-attachments/assets/04832a45-e1f3-4de4-84da-e096fb833a76)
+1. fungsi data delivery dalam sebuah platform :
+    - untuk bertukar informasi antara frontend dan backend
+    - data delivery memungkinkan untuk integrasi dengan sistem lain seperti pembayaran,autentikasi dll.
+    - data delivery bisa dijadikan sebagai informasi yang ditampilkan kepada user
 
-3. Peran settings.py di django :
-  - menngatur database apa yang akan digunakan oleh project tersebut
-  - mengatur lokasi file hmtl pada templates
-  - mengatur aplikasi apa saja yang aktif dalam project tersebut
-  - mengatur domain apa saja yang diizinkan untuk mengakses project
-4. Cara kerja migrasi dalam django adalah pertama kita bisa mengubah models.py lalu menjalankan perintah makemigrations, perintah tersebut akan membandingkan model saat ini dengan migrasi terakhir dan jika ada perubahan akan membuat file baru di folder migrations yang berisi perubahan database. Setelah itu kita harus menjalankan migrate untuk mengubah struktur database sesuai migrasi yang terakhir.
-5. Django dijadikan permulaan pembelajaran pengembangan perangkat lunak karena django sudah menyediakan banyak fitur yang mudah digunakan oleh karena itu pengunanya dapat mengembangkan dengan cepat. Django juga menggunakan arsitektur MVT(model view template) yang bisa membantu pengguna untuk mengatur data di dalam model, function untuk merespon apa ketika request dan template untuk mengatur file-file html.[
+2. menurut saya json lebih baik dan lebih populer dibandingkan dengan xml karena lebih ringkas sehingga lebih mudah dibaca oleh manusia, lebih mudah diintegrasikan denga  REST API, lebih didukung oleh banyak framework/
 
+3.fungsi is_valid dalam form django adalah untuk melihat apakah user sudah mengisi semua field yang ada dan memastikan data yang diisi sudah valid. Jika is_valid sudah return True maka kita bisa melakukan simpan data dengan save.
+
+4. kita membutuhkan csrf_token pada django karena saat server menerima request , token ini akan dijadikan sebagai patokan, jika token tidak cocok maka django akan menolak request. Jika kita tidak menggunakan csrf_token maka server bisa menerima request yang merupakan halaman palsu yang dibuat oleh penyerang. penyerang memanfaatkan tersebut karena server tidak akan mengetahui mana yang merupakan request  yang valid.
+
+5. -Tambahkan 4 fungsi views baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML by ID, dan JSON by ID :
+        - improt httpresponse untuk return dan serializers untuk mengubah format data.
+        - mengimport product dari .models
+        - membuat fungsi show_xml dan show_json 
+        -mengambil semua data dari product dan masukan ke varibael products
+        - membuat variabel yang serialize product ke xml dan json lalu return variabel tersebut dengan httpresponse
+        -membuat fungsi show_xml_by_id dan show_json_by_id dengan parameter request dan id 
+        -prosesnya sama seperti yang show_json atau show_xml tetapi menggunakan try except karena dengan id tertentu data belum tentu ada
+    -Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 1
+        -membuat path dengan nama xml,json,xml/<int:id>, json/<int:id> dengan memanggil fungsi yang sudah saya buat tadi.
+    -Membuat halaman yang menampilkan data objek model yang memiliki tombol "Add" yang akan redirect ke halaman form, serta tombol "Detail" pada setiap data objek model yang akan menampilkan halaman detail objek.
+        - membuat product_list di template yang berfungsi untuk menampilkan semua product
+        - menamnbahkan button pada main.html degan nama products dan jika ditekan dia akan direct ke halam product list.
+    -Membuat halaman form untuk menambahkan objek model pada app sebelumnya.
+        -menambahkan form.html didalam templates
+        -membuat form method = "post"
+        - memasukan csrf_token agar hanya menerima request yang valid
+        = menambahkan form.as_table 
+    -  Membuat halaman product_detail.html yang menampilkan detail dari setiap data objek model.
+        - didalam product_list.html saya menambahkan href yang akan direct ke url prodct_detail dengan p.pk yang akan di pass. jadi di route products<int:pk> pk akan dipass sesuai p.pk sesuai href yang tadi. Halaman product_detail akan menampilkan semua detail yang dimiliki oleh barang tersebut.
