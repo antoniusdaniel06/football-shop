@@ -31,3 +31,15 @@ PWS : https://pbp.cs.ui.ac.id/web/project/antonius.daniel/footballshop
         = menambahkan form.as_table 
     -  Membuat halaman product_detail.html yang menampilkan detail dari setiap data objek model.
         - didalam product_list.html saya menambahkan href yang akan direct ke url prodct_detail dengan p.pk yang akan di pass. jadi di route products<int:pk> pk akan dipass sesuai p.pk sesuai href yang tadi. Halaman product_detail akan menampilkan semua detail yang dimiliki oleh barang tersebut.
+
+Postman xml seleuruh product
+<img width="1905" height="875" alt="image" src="https://github.com/user-attachments/assets/4e77514f-9ea2-404c-b4b9-d4e7946dc08f" />
+Postman xml dengan id 4
+<img width="1913" height="810" alt="image" src="https://github.com/user-attachments/assets/56ea86e8-5114-4fbd-99a3-c4af7d65e386" />
+Postman json seluruh product 
+<img width="1447" height="828" alt="image" src="https://github.com/user-attachments/assets/acf43f8a-9732-4fd8-9902-af5c829d202b" />
+Postman json dengan id 3
+<img width="1432" height="821" alt="image" src="https://github.com/user-attachments/assets/da3180d6-eff4-42ea-a702-dd327f14c632" />
+
+
+
