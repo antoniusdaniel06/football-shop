@@ -1,4 +1,4 @@
-PWS : https://pbp.cs.ui.ac.id/web/project/antonius.daniel/footballshop
+PWS : https://antonius-daniel-footballshop.pbp.cs.ui.ac.id/
 
 1. fungsi data delivery dalam sebuah platform :
     - untuk bertukar informasi antara frontend dan backend
