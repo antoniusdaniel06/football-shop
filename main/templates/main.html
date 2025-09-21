@@ -6,15 +6,27 @@
     <title>LBM SHOP</title>
 </head>
 <body>
-    <h1>Welcome To {{App_name}}</h1>
-    <h2>Nama : {{name}}</h2>
-    <h2>NPM: {{npm}}</h2>
-    <h2>Kelas : {{class}}</h2>
+    <h1>Welcome To {{ App_name }}</h1>
+    <h2>Nama : {{ name }}</h2>
+    <h2>NPM: {{ npm }}</h2>
+    <h2>Kelas : {{ class }}</h2>
 
-    <a href="{% url 'product_list'%}">
-        <button type="button">
-            Products
-        </button>
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+
+
+    <a href="{% url 'main:product_list' %}?filter=all">
+        <button type="button">Products</button>
+    </a>
+
+    
+    <a href="{% url 'main:product_list' %}?filter=my">
+        <button type="button">My Products</button>
+    </a>
+
+    <br><br>
+
+    <a href="{% url 'main:logout' %}">
+      <button>Logout</button>
     </a>
 </body>
 </html>

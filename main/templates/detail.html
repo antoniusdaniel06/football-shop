@@ -12,4 +12,10 @@
 
 <img src="{{ product.thumbnail }}" alt="Thumbnail {{ product.name }}" width="250">
 
+{% if product.user %}
+    <p>Author: {{ product.user.username }}</p>
+{% else %}
+    <p>Author: Anonymous</p>
+{% endif %}
+
 <br><br>

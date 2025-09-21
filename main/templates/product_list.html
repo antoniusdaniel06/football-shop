@@ -5,7 +5,7 @@
                 <b>Name : {{ p.name }}</b><br>
                 <b>Price : {{ p.price }}</b><br>
                 <img src="{{ p.thumbnail }}" alt="Product thumbnail" width="200">
-                <a href="{% url 'product_detail' p.pk %}">
+                <a href="{% url 'main:product_detail' p.pk %}">
                     <button type="button">Detail</button>
                 </a>
 
@@ -17,7 +17,7 @@
                 <p>Name : {{ p.name }}</p>
                 <p>Price : {{ p.price }}</p>
                 <img src="{{ p.thumbnail }}" alt="Product thumbnail" width="200">
-                 <a href="{% url 'product_detail' p.id %}">
+                 <a href="{% url 'main:product_detail' p.id %}">
                     <button type="button">Detail</button>
                 </a>
                 <hr >
@@ -33,7 +33,7 @@
 
 
 
-<a href="{% url 'create_product' %}">
+<a href="{% url 'main:create_product' %}">
     <button type="button">Add</button>
 </a>
 
