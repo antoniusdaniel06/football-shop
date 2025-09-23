@@ -16,6 +16,22 @@ PWS : https://antonius-daniel-footballshop.pbp.cs.ui.ac.id/
     CSRF_COOKIE_SECURE = True → CSRF cookie juga hanya via HTTPS.
     CSRF_COOKIE_HTTPONLY = True → mengurangi risiko cookie dibaca script.
 -Django punya proteksi CSRF token otomatis di form HTML
+
+Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya :
+ - Mengimport usercreationform,authenticationmform, authenticate,login,logout
+ - Membuat fungsi register. membuat variabel form yang berisi usercreaionform. jika data pada form valid maka akan save dan akan redirect ke halaman loging , jika tidak valid akan meminta user register ulang
+ - membuat fungsi login_user. jika method == "POST" maka form akan berisi authenticationform dengan paramter data yang di post. jika form valid , maka akan mengambil user dengan cara form.get_user() lalu memanggil fungsi login dengan parameter request dan user yang sudah diambil. Setelah login akan redirect ke fungsi show_main dan akan set_cookie dengan nama last login berdasarkan date login.
+ - membuat fungsi logout_user . memanggil fungsi logout dan akan redirect ke login.setelah redirect last_login akan didelete cookienya.
+ - mengimport login_required dan menambahkan @login_required sebelum fungsi show_name, product_detail,product_list dan create product.
+ - menambahkan fungsi yang sudah dibuat kedalam urls.py .
+Membuat dua (2) akun pengguna dengan masing-masing tiga (3) dummy data menggunakan model yang telah dibuat sebelumnya untuk setiap akun di lokal:
+ - register dua akun dan menambahkan 3 product melalu add product.
+Menghubungkan model Product dengan User:
+- mengimport User didalam models.py dan menambahkan variabel baru di dalam product yaitu user. user didefinisikan sebagai one to many dan jika user dihapus maka semuanya yang berhubungan dengan user tersebut akan dihapus dengan cara on_delete = models.cascade.
+- melakukan makemogrations dan migrate
+Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last_login pada halaman utama aplikasi :
+ - mengubah context dalam fungsi showname menjadi ada last_login yang berisi cookies.get(last_login,never) dan menambahkan username : user.username
+ - menampilkan username dan last_login pada main.html.
    
 
 
