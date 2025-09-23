@@ -26,10 +26,12 @@ def show_name(request):
         'name' :'Antonius Daniel',
         'npm' : '2406496012',
         'class' : 'PBP E',
-        'last_login': request.COOKIES.get('last_login', 'Never')
+        'last_login': request.COOKIES.get('last_login', 'Never'),
+        'username': request.user.username,
     }
     return render(request, "main.html", person)
 
+@login_required(login_url='/login')
 def create_product(request):
     form = ProductForm(request.POST or None)
 
@@ -42,7 +44,7 @@ def create_product(request):
     context = {"form" : form}
     return render(request,"form.html",context)
 
-login_required(login_url='/login')
+@login_required(login_url='/login')
 def product_list(request):
     filter_type = request.GET.get("filter", "all") 
     if filter_type == "my":
