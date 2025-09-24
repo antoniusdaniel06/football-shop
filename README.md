@@ -11,10 +11,10 @@ PWS : https://antonius-daniel-footballshop.pbp.cs.ui.ac.id/
 4.Penggunaan cookies tidak selalu aman karena data bisa dicuri dengan cara XXS dan user langsung diambil alih. Django menangani hal tersebut dengan cara :
 - Cookie session hanya menyimpan ID (data ada di server).
 - Opsi keamanan di settings.py:
-    SESSION_COOKIE_HTTPONLY = True → cookie tidak bisa diakses via JavaScript.
-    SESSION_COOKIE_SECURE = True → cookie hanya dikirim lewat HTTPS.
-    CSRF_COOKIE_SECURE = True → CSRF cookie juga hanya via HTTPS.
-    CSRF_COOKIE_HTTPONLY = True → mengurangi risiko cookie dibaca script.
+    SESSION_COOKIE_HTTPONLY = True,cookie tidak bisa diakses via JavaScript.
+    SESSION_COOKIE_SECURE = True, cookie hanya dikirim lewat HTTPS.
+    CSRF_COOKIE_SECURE = True, CSRF cookie juga hanya via HTTPS.
+    CSRF_COOKIE_HTTPONLY = True,mengurangi risiko cookie dibaca script.
 -Django punya proteksi CSRF token otomatis di form HTML
 
 Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya :
