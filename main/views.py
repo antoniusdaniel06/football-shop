@@ -28,6 +28,8 @@ def show_name(request):
         'class' : 'PBP E',
         'last_login': request.COOKIES.get('last_login', 'Never'),
         'username': request.user.username,
+        'products' : product_list,
+
     }
     return render(request, "main.html", person)
 
@@ -43,17 +45,6 @@ def create_product(request):
 
     context = {"form" : form}
     return render(request,"form.html",context)
-
-@login_required(login_url='/login')
-def product_list(request):
-    filter_type = request.GET.get("filter", "all") 
-    if filter_type == "my":
-        products = Product.objects.filter(user=request.user)  
-    else:  
-        products = Product.objects.all() 
-    
-    context = {'products': products}
-    return render(request, 'product_list.html', context)
 
 @login_required(login_url='/login')
 def product_detail(request, pk):
@@ -127,6 +118,25 @@ def add_employee(request):
         'employee' : emp
     }
     return render(request,'employee.html', context)
+
+def edit_product(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method =="POST":
+        form.save()
+        return redirect("main:show_name")
+    
+    context = {
+        "form" : form
+    }
+    return render(request,'edit_product.html', context)
+
+def delete_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    product.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+
     
 
 

@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
 <h1>Daftar Produk</h1>
     {% for p in products %}
         {% if p.is_featured %}
@@ -8,6 +13,20 @@
                 <a href="{% url 'main:product_detail' p.pk %}">
                     <button type="button">Detail</button>
                 </a>
+                <p>
+    <a href="{% url 'main:product_detail' p.id %}"><button>Read More</button></a>
+    {% if user.is_authenticated and news.user == user %}
+    <a href="{% url 'main:edit_product' p.id %}">
+        <button>
+            Edit
+        </button>
+    </a>
+    <a href="{% url 'main:delete_product' p.id %}">
+      <button>
+          Delete
+      </button>
+    {% endif %}
+</p>
 
 
                 <hr>
@@ -20,6 +39,16 @@
                  <a href="{% url 'main:product_detail' p.id %}">
                     <button type="button">Detail</button>
                 </a>
+                <p>
+    <a href="{% url 'main:show_news' news.id %}"><button>Read More</button></a>
+    {% if user.is_authenticated and news.user == user %}
+    <a href="{% url 'main:edit_news' news.pk %}">
+        <button>
+            Edit
+        </button>
+    </a>
+    {% endif %}
+</p>
                 <hr >
             </ul>
         {% endif %}
@@ -37,6 +66,6 @@
     <button type="button">Add</button>
 </a>
 
-
+{% endblock %}
 
 

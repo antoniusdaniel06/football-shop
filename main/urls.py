@@ -6,7 +6,6 @@ app_name = "main"
 urlpatterns = [
     path('',views.show_name, name='show_name'),
     path('create_product/', views.create_product, name="create_product"),
-    path('product_list/', views.product_list,name="product_list"),
     path('products/<int:pk>', views.product_detail,name="product_detail"),
     path('xml/',views.show_xml,name="show_xml"),
     path('json/', views.show_json,name="show_json"),
@@ -16,5 +15,8 @@ urlpatterns = [
     path('login/', views.login_user,name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('employee/',views.add_employee, name='employee'),
+    path('product/<int:pk>/edit', views.edit_product,name="edit_product"),
+    path('news/<int:pk>/delete',views.delete_product, name='delete_product'),
+
     
 ]
