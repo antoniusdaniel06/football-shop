@@ -13,11 +13,7 @@ PWS : https://antonius-daniel-footballshop.pbp.cs.ui.ac.id/
     - Halaman edit_product : desain mirip dengan halaman add product, udul diganti jadi Edit Product dengan deskripsi singkat agar user paham bahwa ini untuk mengupdate, Tombol diganti jadi Update Product, sementara ada tombol Cancel untuk kembali ke daftar produk, Error handling sama dengan halaman tambah produk.
     -Halaman  detail_product : membuat judul product besar dengan text-3xl font-bold, jika ada thumbnail maka akan ditampilkan dengan ukuran besar dan styling object-cover rounded-lg, Deskripsi ditampilkan dengan whitespace-pre-line, membuat navigasi balik ke daftar product 
     - Jika pada aplikasi belum ada product yang tersimpan, halaman daftar product akan menampilkan gambar dan pesan bahwa belum ada product yang terdaftar , Jika sudah ada product yang tersimpan, halaman daftar product akan menampilkan detail setiap product dengan menggunakan card (tidak boleh sama persis dengan desain pada Tutorial!) : 
-    {% if products %}
-   <!-- tampilkan daftar produk -->
-{% else %}
-   <!-- tampilkan pesan kosong -->
-{% endif %}
-    - Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut! : path('product/<int:id>/edit/', views.edit_product, name='edit_product'),
+    {% if products %},{% else %},{% endif %}
+   - Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut! : path('product/<int:id>/edit/', views.edit_product, name='edit_product'),
     path('product/<int:id>/delete/', views.delete_product, name='delete_product') pada urls.py , Edit Button link ke halaman edit dengan warna biru .Delete Button link ke halaman delete dengan warna merah, plus ada confirm() biar nggak kepencet nggak sengaja. Pakai Tailwind CSS (bg-blue-500, bg-red-500.
     -  Buatlah navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop : membuat file navbar pada template di root directory, lalu menginclude navbar di semua html file.
