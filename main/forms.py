@@ -1,7 +1,12 @@
 from django.forms import ModelForm
-from .models import Product
+from .models import Product,Car
 
 class ProductForm(ModelForm):
     class Meta :
         model = Product
         fields = ["name", "price", "description", "thumbnail", "category","is_featured"]
+
+class CarForm (ModelForm):
+    class Meta :
+        model = Car
+        fields = ["name", "brand", "stock"]

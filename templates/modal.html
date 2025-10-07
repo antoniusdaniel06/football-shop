@@ -1,0 +1,196 @@
+<!-- Modal -->
+<div id="crudModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+  <div id="crudModalContent" class="bg-white rounded-lg shadow-lg w-5/6 sm:w-3/5 md:w-1/2 lg:w-2/5 xl:w-1/3 max-h-screen overflow-y-auto transition-all duration-200 ease-out transform opacity-0 scale-95">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 border-b">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-900">Create New Product</h3>
+        <p class="text-sm text-gray-600 mt-1">Add a new product to your football shop inventory</p>
+      </div>
+      <button type="button" onclick="hideModal()" class="text-gray-400 hover:text-gray-900 rounded-lg text-sm p-1.5">
+        ✕
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="px-6 py-4 space-y-6 form-style">
+      <form id="productForm">
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+          <input type="text" id="name" name="name" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" required>
+        </div>
+
+        <div class="mb-4">
+          <label for="price" class="block text-sm font-medium text-gray-700">Price (Rp)</label>
+          <input type="number" id="price" name="price" min="0" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" required>
+        </div>
+
+        <div class="mb-4">
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea id="description" name="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" required></textarea>
+        </div>
+
+        <div class="mb-4">
+          <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+          <select id="category" name="category" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" required>
+            <option value="">Choose a category</option>
+            <option value="jersey">Jersey</option>
+            <option value="sepatu">Sepatu</option>
+            <option value="peralatan">Peralatan Olahraga</option>
+            <option value="aksesoris">Aksesoris</option>
+            <option value="bola">Bola</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail URL</label>
+          <input type="url" id="thumbnail" name="thumbnail" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
+        </div>
+
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="is_featured" name="is_featured" type="checkbox" class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded">
+            <label for="is_featured" class="ml-2 text-sm text-gray-900">Featured Product</label>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-200">
+          <button type="button" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50" onclick="hideModal()">Cancel</button>
+          <button type="submit" class="flex-1 bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700">Publish Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  let currentId = null;
+  function resetModal() {
+    document.getElementById('productForm').reset();
+    document.getElementById('productForm').dataset.productId = '';
+    document.getElementById('crudModalContent').querySelector('h3').textContent = 'Create New Product';
+    document.getElementById('crudModalContent').querySelector('button[type="submit"]').textContent = 'Publish Product';
+}
+
+  function showModal(productId=null) {
+    const modal = document.getElementById('crudModal');
+    const modalContent = document.getElementById('crudModalContent');
+    currentProductId = productId; 
+
+    if (productId) {
+        
+        document.getElementById('crudModalContent').querySelector('h3').textContent = 'Update Product';
+        document.getElementById('crudModalContent').querySelector('button[type="submit"]').textContent = 'Save Changes';
+        loadProductData(productId);
+    } else {
+        resetModal();
+    }
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+    }, 50);
+}
+
+  function hideModal() {
+    const modal = document.getElementById('crudModal');
+    const modalContent = document.getElementById('crudModalContent');
+    modalContent.classList.remove('opacity-100', 'scale-100');
+    modalContent.classList.add('opacity-0', 'scale-95');
+    setTimeout(() => modal.classList.add('hidden'), 150);
+  }
+
+  async function loadProductData(productId) {
+    try {
+        const response = await fetch(`/json/${productId}/`); 
+        const productData = await response.json();
+
+        document.getElementById('name').value = productData.name;
+        document.getElementById('price').value = productData.price;
+        document.getElementById('description').value = productData.description;
+        document.getElementById('category').value = productData.category;
+        document.getElementById('thumbnail').value = productData.thumbnail;
+        document.getElementById('is_featured').checked = productData.is_featured;
+
+    } catch (error) {
+        showToast('Failed to load product details.', 'error');
+        hideModal();
+    }
+}
+async function editProductEntry(formData, productId) {
+    const editUrlBase = "{% url 'main:edit_product_ajax' pk=0 %}";
+    const editUrl = editUrlBase.replace('/0/', '/' + productId + '/');
+
+    const response = await fetch(editUrl, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': CSRF_TOKEN,
+        },
+        body: formData,
+    });
+    return response;
+}
+
+
+  async function addProductEntry(formData) {
+    const response = await fetch("{% url 'main:add_product_entry_ajax' %}", {
+        method: "POST",
+        body: formData,
+    });
+    return response; 
+}
+
+document.getElementById("productForm").addEventListener("submit", async function(e) {
+    e.preventDefault(); 
+    const form = e.target;
+    const formData = new FormData(form); 
+
+    let response;
+
+    if (currentProductId) {
+        response = await editProductEntry(formData, currentProductId); 
+    } else {
+        response = await addProductEntry(formData); 
+    }
+
+    if (response) {
+        let success = false;
+        let message = 'Action completed successfully.';
+        let responseData = {};
+        
+        if (response.ok || response.status === 201) {
+            success = true;
+            
+            if (currentProductId) {
+                try {
+                    responseData = await response.json();
+                    message = responseData.message || 'Product updated successfully.';
+                } catch (e) {
+                    message = 'Product updated successfully.'; 
+                }
+            } else {
+                message = 'Product created successfully.'; 
+            }
+        } else {
+            try {
+                responseData = await response.json();
+                message = responseData.message || 'Action failed due to server error.';
+            } catch (jsonError) {
+                message = 'An error occurred. Check server logs.';
+            }
+        }
+        if (success) {
+            showToast(message, 'success');
+            form.reset(); 
+            hideModal();
+            document.dispatchEvent(new CustomEvent('productAdded'));
+        } else {
+            showToast(message, 'error');
+        }
+    }
+});
+</script>
